@@ -20,4 +20,12 @@ class Piece{
 		this.x -= x;
 		this.y -= y;
 	}
+
+	getCenter(){
+		return [this.x + this.height / 2, this.y + this.width / 2];
+	}
+
+	flashlight(){
+		
+	}
 }
