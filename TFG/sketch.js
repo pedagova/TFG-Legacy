@@ -25,20 +25,13 @@ function draw(){
 		myPiece.modifyPos(lastMouseX - mouseX, lastMouseY - mouseY);
 		lastMouseX = mouseX;
 		lastMouseY = mouseY;
-	}
 
-	let temp = offSetGrip(piece1, piece2);
-	let point1 = temp[0];
-	let point2 = temp[1];
-	let p1 = piece1.getCenter(), p2 = piece2.getCenter();
-	let module1 = sqrt(pow(point1[0] - p1[0], 2) + pow(point2[0] - p2[0], 2));
-	let module2 = sqrt(pow(point1[1] - p1[1], 2) + pow(point2[1] - p2[1], 2));
-	let module = module2;
-	if(module2 < module1)
-		module = module1;
-	if( module < D){ 
-		console.log(module);
-		background(255, 0, 0);
+		for (let i = 0; i < pieces.length ; i++) {
+			if(myPiece.grip(pieces[i])){
+				console.log("JAJA");
+				break;
+			}
+		}
 	}
 
 }	
