@@ -1,7 +1,7 @@
 
 let pieces = [];
-let piece1 = new Piece(100, 45, 300, 300);
-let piece2 = new Piece(100, 45, 100, 200);
+let piece1 = new Piece(100, 45, 300, 300, 255, 0, 0);
+let piece2 = new Piece(100, 45, 100, 200, 0, 255, 0);
 let myPiece = null;
 let gripedPiece = null;
 let lastMouseX = 0.0, lastMouseY = 0.0;
@@ -16,13 +16,12 @@ function setup(){
 function draw(){
 	background(0,255,0);
 
-	for (let i = 0; i < pieces.length ; i++) {
-		let c = pieces[i].getCenter();
-		pieces[i].show();
-		fill(0);
-		ellipse(c[0], c[1], 20, 20);
-	}
+	drawPieces();
 
+	myPieceInteraction();
+}	
+
+function myPieceInteraction(){
 	if(myPiece != null){
 		myPiece.modifyPos(lastMouseX - mouseX, lastMouseY - mouseY);
 		lastMouseX = mouseX;
@@ -38,8 +37,18 @@ function draw(){
 			}
 		}
 	}
+}
 
-}	
+function drawPieces(){
+	for (let i = 0; i < pieces.length ; i++) {
+		let c = pieces[i].getCenter();
+		pieces[i].show();
+		fill(0);
+		ellipse(c[0], c[1], 20, 20);
+	}
+}
+
+//Mouse control
 
 function mousePressed(){
 	for (let i = 0; i < pieces.length ; i++) {
