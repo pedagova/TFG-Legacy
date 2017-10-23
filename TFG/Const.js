@@ -8,6 +8,12 @@ Direction = {
 }
 const D = 75;
 
+const GLOBALDISTHORIZONTAL = 115;
+const ACEPTATIONHORIZONTAL = 30;
+const GLOBALDISTVERTICAL = 115;
+const ACEPTATIONVERTICAL = 30;
+
+
 function pointVector(point, vector, module){
 	return [point[0] - module * vector[0], point[1] - module * vector[1]];
 }

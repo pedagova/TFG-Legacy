@@ -3,7 +3,9 @@ let pieces = [];
 let piece1 = new Piece(100, 45, 300, 300);
 let piece2 = new Piece(100, 45, 100, 200);
 let myPiece = null;
+let gripedPiece = null;
 let lastMouseX = 0.0, lastMouseY = 0.0;
+let x = 0;
 
 function setup(){
 	createCanvas(600,600);
@@ -28,7 +30,10 @@ function draw(){
 
 		for (let i = 0; i < pieces.length ; i++) {
 			if(myPiece.grip(pieces[i])){
-				console.log("JAJA");
+				gripedPiece = pieces[i];
+				console.log(x);
+				x++;
+				pieces[i].gripWith(myPiece);
 				break;
 			}
 		}

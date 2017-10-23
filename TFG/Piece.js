@@ -35,6 +35,26 @@ class Piece{
 		Dx = abs(Dx);
 		Dy = abs(Dy);
 
-		return Dx < 40 && Dy < 10 || Dx < 10 && Dy < 40;
+		return Dx < GLOBALDISTHORIZONTAL && Dy < ACEPTATIONHORIZONTAL || Dx < ACEPTATIONVERTICAL && Dy < GLOBALDISTVERTICAL;
+	}
+
+	gripWith(piece){
+		if(this == piece) return false;
+
+		let Dx = piece.getCenter()[0] - this.getCenter()[0];
+		let Dy = piece.getCenter()[1] - this.getCenter()[1];
+
+		Dx = abs(Dx);
+		Dy = abs(Dy);
+
+		if(Dx < GLOBALDISTHORIZONTAL && Dy < ACEPTATIONHORIZONTAL){
+			this.x = this.x + (piece.x - this.x - this.width);
+			this.y = piece.y;
+		}			
+		else{
+			this.x = piece.x;
+			this.y = this.y + (piece.y - this.y - this.height);
+		}
+
 	}
 }
