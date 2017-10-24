@@ -32,7 +32,7 @@ function myPieceInteraction(){
 				gripedPiece = pieces[i];
 				console.log(x);
 				x++;
-				pieces[i].gripWith(myPiece);
+				myPiece.gripWith(pieces[i]);
 				break;
 			}
 		}

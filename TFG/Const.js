@@ -1,9 +1,9 @@
 const D = 75;
 
-const GLOBALDISTHORIZONTAL = 115;
-const ACEPTATIONHORIZONTAL = 30;
-const GLOBALDISTVERTICAL = 115;
-const ACEPTATIONVERTICAL = 30;
+const DISTH = 100 + 15;
+const DISTACCEPTH = 10;
+const DISTV = 45 + 15;
+const DISTACCEPTV = 10;
 
 
 function pointVector(point, vector, module){

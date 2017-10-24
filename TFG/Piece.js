@@ -49,13 +49,10 @@ class Piece{
 
 		if(this == piece) return false;
 
-		let Dx = piece.getCenter()[0] - this.getCenter()[0];
-		let Dy = piece.getCenter()[1] - this.getCenter()[1];
+		let Dx = abs(piece.x - this.x);
+		let Dy = abs(piece.y - this.y);
 
-		Dx = abs(Dx);
-		Dy = abs(Dy);
-
-		return Dx < GLOBALDISTHORIZONTAL && Dy < ACEPTATIONHORIZONTAL || Dx < ACEPTATIONVERTICAL && Dy < GLOBALDISTVERTICAL;
+		return Dx < DISTH && Dy < DISTACCEPTH || Dx < DISTACCEPTV && Dy < DISTV;
 	}
 
 
@@ -65,7 +62,38 @@ class Piece{
 	gripWith(piece){
 		if(this == piece) return;
 
-		let Dx = abs(piece.x - this.x);
+		let dx = abs(piece.x - this.x);
+		let dy = abs(piece.y - this.y);
+
+		//Horizontal
+		if(dx < DISTH && dy < DISTACCEPTH){
+			console.log("Horizontal");
+			this.y = piece.y;
+			//UP
+			if(this.x < piece.x){
+				console.log("RIGHT");
+				this.modifyPos(-(dx - this.width), 0);
+			}
+			else{
+				console.log("LEFT");
+				this.modifyPos(dx - this.width, 0);
+			}
+		}
+		//Vertical
+		else if(dx < DISTACCEPTV && dy < DISTV){
+			console.log("Vertical");
+			this.x = piece.x;
+			if(this.y < piece.y){
+				console.log("DOWN");
+				this.modifyPos(0, -(dy - this.height));
+			}
+			else{
+				console.log("UP");
+				this.modifyPos(0, dy - this.height);
+			}
+		}
+
+		/*let Dx = abs(piece.x - this.x);
 		let Dy = abs(piece.y - this.y);
 
 		if(Dx < GLOBALDISTHORIZONTAL && Dy < ACEPTATIONHORIZONTAL){
@@ -75,7 +103,10 @@ class Piece{
 		else{
 			this.x = piece.x;
 			this.y = this.y + (piece.y - this.y - offSet(piece.y - this.y) * (this.height / 2) + (this.height / 2));
-		}
+		}*/
+
+
+
 	}
 
 	
