@@ -1,7 +1,7 @@
 
 let pieces = [];
 let piece1 = new Piece(100, 45, 300, 300, 255, 0, 0);
-let piece2 = new Piece(100, 45, 100, 200, 0, 255, 0);
+let piece2 = new Piece(100, 45, 100, 100, 0, 255, 0);
 let myPiece = null;
 let gripedPiece = null;
 let lastMouseX = 0.0, lastMouseY = 0.0;
@@ -22,8 +22,21 @@ function draw(){
 }	
 
 function myPieceInteraction(){
+
+	let offX = lastMouseX - mouseX;
+	let offY = lastMouseY - mouseY;
 	if(myPiece != null){
-		myPiece.modifyPos(lastMouseX - mouseX, lastMouseY - mouseY);
+
+		myPiece.modifyPos(offX, offY);
+		
+		for(let i = 0; i < pieces.length; i++){
+			
+			if(myPiece.onBounds(pieces[i])){
+				myPiece.modifyPos(-offX, -offY);
+				return;
+			}
+		}
+		
 		lastMouseX = mouseX;
 		lastMouseY = mouseY;
 

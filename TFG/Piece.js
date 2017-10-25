@@ -109,6 +109,25 @@ class Piece{
 
 	}
 
+	//check the colision between the piece and the a piece
+		//param: piece: the piece to check if its colides	 
+	onBounds(piece){
+		
+		if(this == piece) return;
+
+		let px = piece.x;
+		let py = piece.y;
+		let left = px - this.width;
+		let right = px + piece.width;
+		let top = py - this.height;
+		let bottom = py + piece.height;
+
+
+
+        return this.x > left && this.x < right
+        	&& this.y > top && this.y < bottom;
+	}
+
 	
 }
 
