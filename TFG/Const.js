@@ -4,6 +4,20 @@ const DISTH = 100 + 15;
 const DISTACCEPTH = 10;
 const DISTV = 45 + 15;
 const DISTACCEPTV = 10;
+const TRIANGLE_SIZE = 30;
+
+
+var DIR = {
+	RIGHT: 1,
+	LEFT: 2,
+	TOP: 3,
+	BOTTOM: 4,
+};
+
+
+function getTriangleH(){
+	return sqrt(3) * TRIANGLE_SIZE / 2;
+}
 
 
 function pointVector(point, vector, module){

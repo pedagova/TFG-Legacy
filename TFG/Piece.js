@@ -4,7 +4,7 @@ class Piece{
 		//Param: - widhth, height: size of the Piece
 		//		 - x, y: position of the up left corner
 
-	constructor(width, height , x, y, r, g, b){
+	constructor(width, height , x, y, r, g, b, dirs){
 		this.height = height;
 		this.width = width;
 		this.x = x;
@@ -12,13 +12,52 @@ class Piece{
 		this.r = r;
 		this.g = g;
 		this.b = b;
-		this.griped = {};
+		this.dirs = dirs;
 	}	
+
+	
 
 	//Display de image of the Piece
 	show(){
+		strokeWeight(1);
+		stroke(0, 0, 0);
 		fill(this.r, this.g, this.b);
 		rect(this.x, this.y, this.width, this.height);
+		for(let dir of this.dirs){
+			this.showNotch(dir);
+		}
+	}
+
+	showNotch(dir){
+		strokeWeight(1);
+		stroke(255, 255, 255);
+
+		let px, py;
+		let h = getTriangleH();
+		let s = TRIANGLE_SIZE;
+		switch(dir){
+			case DIR.LEFT:
+				px = this.x;
+				py = this.y;
+				triangle(px, py, px, py + s, px - h, py + s / 2);
+				break;
+			case DIR.RIGHT:
+				px = this.x + this.width;
+				py = this.y;
+				triangle(px, py, px, py + s, px + h, py + s / 2);
+				break;
+			case DIR.TOP:
+				px = this.x ;
+				py = this.y;
+				triangle(px, py, px + s, py, px + s / 2, py - h);
+				break;
+			case DIR.BOTTOM:
+				px = this.x;
+				py = this.y + this.height;
+				triangle(px, py, px + s, py, px + s / 2, py + h);
+				line(this.x, this.y + this.height, this.x + this.width, this.y + this.height);
+				break;
+		}
 	}
 
 	//it indicates if the mouse is over this piece

@@ -1,7 +1,7 @@
 
 let pieces = [];
-let piece1 = new Piece(100, 45, 300, 300, 255, 0, 0);
-let piece2 = new Piece(100, 45, 100, 100, 0, 255, 0);
+let piece1 = new Piece(100, 45, 300, 300, 255, 0, 0, [DIR.RIGHT, DIR.TOP]);
+let piece2 = new Piece(100, 45, 100, 100, 0, 255, 0, [DIR.LEFT]);
 let myPiece = null;
 let gripedPiece = null;
 let lastMouseX = 0.0, lastMouseY = 0.0;
@@ -59,6 +59,7 @@ function drawPieces(){
 		fill(0);
 		ellipse(c[0], c[1], 20, 20);
 	}
+	
 }
 
 //Mouse control
