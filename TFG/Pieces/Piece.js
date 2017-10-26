@@ -1,5 +1,4 @@
 class Piece{
-
 	//create a piece 
 		//Param: - widhth, height: size of the Piece
 		//		 - x, y: position of the up left corner
@@ -12,26 +11,32 @@ class Piece{
 		this.r = r;
 		this.g = g;
 		this.b = b;
-		this.dirs = dirs;
+		this.dirs = [null, null, null, null];
+		for(let dir of dirs){
+			this.dirs[dir] = GRIPEDGE;
+		}
+		this.clickX;
+		this.clickY;
 	}	
 
 	
 
 	//Display de image of the Piece
 	show(){
-		strokeWeight(1);
-		stroke(0, 0, 0);
+		
 		fill(this.r, this.g, this.b);
 		rect(this.x, this.y, this.width, this.height);
 		for(let dir of this.dirs){
-			this.showNotch(dir);
+			if(dir == null) continue;
+			this.showNotch();
+		}
+		for(let i = 0; i < 4; i++){
+			if(this.dirs[i] == null) continue;
+			this.showNotch(i);
 		}
 	}
 
 	showNotch(dir){
-		strokeWeight(1);
-		stroke(255, 255, 255);
-
 		let px, py;
 		let h = getTriangleH();
 		let s = TRIANGLE_SIZE;
@@ -88,10 +93,39 @@ class Piece{
 
 		if(this == piece) return false;
 
-		let Dx = abs(piece.x - this.x);
-		let Dy = abs(piece.y - this.y);
+		let dx = abs(piece.x - this.x);
+		let dy = abs(piece.y - this.y);
 
-		return Dx < DISTH && Dy < DISTACCEPTH || Dx < DISTACCEPTV && Dy < DISTV;
+		//Horizontal
+		if(dx < DISTH && dy < DISTACCEPTH){
+			this.y = piece.y;
+			//LEFT
+			if(this.x < piece.x){
+				return piece.dirs[DIR.LEFT] == GRIPEDGE && this.dirs[DIR.RIGHT] == GRIPEDGE;		
+			}
+			//RIGHT
+			else{
+				return piece.dirs[DIR.RIGHT] == GRIPEDGE  && this.dirs[DIR.LEFT] == GRIPEDGE;	
+			}
+		}
+		//Vertical
+		else if(dx < DISTACCEPTV && dy < DISTV){
+			this.x = piece.x;
+			//TOP
+			if(this.y < piece.y){
+				return piece.dirs[DIR.BOTTOM] == GRIPEDGE && this.dirs[DIR.TOP] == GRIPEDGE;
+			}
+			//BOTTOM
+			else{
+				return piece.dirs[DIR.TOP] == GRIPEDGE && this.dirs[DIR.BOTTOM] == GRIPEDGE;
+			}
+		}
+
+		
+	}
+
+	canUnGrip(){
+		return 
 	}
 
 
@@ -100,37 +134,48 @@ class Piece{
 
 	gripWith(piece){
 		if(this == piece) return;
-
 		let dx = abs(piece.x - this.x);
 		let dy = abs(piece.y - this.y);
 
 		//Horizontal
 		if(dx < DISTH && dy < DISTACCEPTH){
-			console.log("Horizontal");
 			this.y = piece.y;
-			//UP
+			//LEFT
 			if(this.x < piece.x){
-				console.log("RIGHT");
+				this.dirs[DIR.RIGHT] = piece;
+				piece.dirs[DIR.LEFT] = this;piece; 
 				this.modifyPos(-(dx - this.width), 0);
+				
 			}
+			//LEFT
 			else{
-				console.log("LEFT");
+				this.dirs[DIR.LEFT] = piece;
+				piece.dirs[DIR.RIGHT] = this;piece; 
 				this.modifyPos(dx - this.width, 0);
 			}
 		}
+
+
 		//Vertical
 		else if(dx < DISTACCEPTV && dy < DISTV){
-			console.log("Vertical");
 			this.x = piece.x;
+			//Bottom
 			if(this.y < piece.y){
-				console.log("DOWN");
+				this.dirs[DIR.BOTTOM] = piece;
+				piece.dirs[DIR.TOP] = this;
 				this.modifyPos(0, -(dy - this.height));
 			}
+			//UP
 			else{
-				console.log("UP");
+				this.dirs[DIR.TOP] = piece;
+				piece.dirs[DIR.BOTTOM] = this;
 				this.modifyPos(0, dy - this.height);
 			}
+
+			mouseX = this.x + this.clickX;
+			mouseY = this.y + this.clickY;
 		}
+		
 
 		/*let Dx = abs(piece.x - this.x);
 		let Dy = abs(piece.y - this.y);
@@ -147,6 +192,9 @@ class Piece{
 
 
 	}
+
+
+
 
 	//check the colision between the piece and the a piece
 		//param: piece: the piece to check if its colides	 
@@ -165,11 +213,11 @@ class Piece{
 
         return this.x > left && this.x < right
         	&& this.y > top && this.y < bottom;
-	}
+	}	
 
-	
+	exec(){};
 }
 
 function offSet(distance){
-		return distance / abs(distance)
+		return distance / abs(distance);
 }

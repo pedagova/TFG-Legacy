@@ -6,12 +6,14 @@ const DISTV = 45 + 15;
 const DISTACCEPTV = 10;
 const TRIANGLE_SIZE = 30;
 
+const GRIPEDGE = 1;
+
 
 var DIR = {
+	TOP: 0,
 	RIGHT: 1,
-	LEFT: 2,
-	TOP: 3,
-	BOTTOM: 4,
+	BOTTOM: 2,
+	LEFT: 3,
 };
 
 
