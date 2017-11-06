@@ -15,6 +15,7 @@ class PieceView{
 		rectMode(CENTER);
 		rect(x, y, this.width, this.height);
 		point(x, y);
+		fill(0);
 	}
 }
 

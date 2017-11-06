@@ -10,26 +10,30 @@ class ForPieceModel extends PieceModel{
 		if(this.first == null){
 			this.first = piece;	
 		}
-		cont++;
-		return piece;
+		this.cont++;
 	}
 
 	modifyPos(x, y){
 
 		super.modifyPos(x, y);
-		this.first.modifyPos(x, y);
+		if(this.first != null)
+			this.first.modifyPos(x, y);
 
 	}
 
 	exec(param){
 		let p = this.first;
 
+		console.log("ini for ---------------------");
+
 		for(let i = 0; i < 5; i++){
+			console.log("iteration " + i);
 			while((p = p.exec(param)) != null){}
 			p = this.first;	
-			console.log("iteration " + i);
 		}
 		
+
+		console.log("fin for ---------------------");
 		return this.next;
 	}
 

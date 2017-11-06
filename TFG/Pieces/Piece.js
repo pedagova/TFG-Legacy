@@ -1,8 +1,9 @@
 class Piece {
 
-	constructor(width, height, x, y, color){
+	constructor(width, height, x, y, color, name){
+		this.name = name;
 		this.view = new PieceView(width, height, color);
-		this.model = new PieceModel(x, y);
+		this.model = new PieceModel(x, y, name);
 	}
 
 	addNext(next){
@@ -17,6 +18,9 @@ class Piece {
 
 	show(){
 		this.view.show(this.model.x, this.model.y);
+		/*if(this.model.next != null)
+			this.model.next.show();*/
+
 	}
 
 	isSelected(x, y){
@@ -27,10 +31,28 @@ class Piece {
 		this.model.modifyPos(x, y);
 	}
 
+	canAdh(piece){
+		if(piece == this) return;
+		return this.model.canAdh(piece, this.view.width, this.view.height);
+	}
+
 	exec(param){
 		return this.model.exec(param);
 	}
 
+	getX(){
+		return this.model.x;
+	}
+		
+	getY(){
+		return this.model.y;
+	}
 
-	
+	getWidth(){
+		return this.view.width;
+	}
+
+	getHeight(){
+		return this.view.height;
+	}
 }

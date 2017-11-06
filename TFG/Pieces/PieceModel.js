@@ -1,8 +1,9 @@
 class PieceModel{
 
-	constructor(x, y){
+	constructor(x, y, name){
 		this.x = x;
 		this.y = y;
+		this.name = name;
 		this.next = null;
 	}
 
@@ -33,8 +34,29 @@ class PieceModel{
 		this.next.modifyPos(x, y);
 	}
 
+	canAdh(piece, _width, _height){
+
+	
+		let p1 = {
+			x : this.x,
+			y : this.y - _height / 2,
+		}
+
+		let p2 = {
+			x : piece.getX(),
+			y : piece.getY() + piece.getHeight() / 2,
+		}
+
+		let yDif = p1.y - p2.y;
+		let xDif = p1.x - p2.x;
+
+
+		return yDif > 0 && yDif < 30 &&
+				abs(xDif) < 10;
+	}
+
 	exec(param){
-		console.log("this class is only for teasting, remember delete it later");
+		console.log("Soy la pieza: ", this.name);
 		return this.next;
 	}
 

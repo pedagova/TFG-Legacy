@@ -9,23 +9,43 @@ function findPiece(pieces){
 
 function mousePressed(){
 	myPiece = findPiece(pieces);
-	console.log(myPiece);
-	console.log("mouseX: ", mouseX - width / 2, " mouseY: ",  mouseY - height / 2);
 	px = mouseX;
 	py = mouseY;
 }
 
 function mouseDragged(){
-	
+	let adh;
 	if(myPiece == null) return;
-	console.log("mouseX: ", mouseX, " mouseY: ", mouseY);
-	console.log("pmouseX: ", pmouseX, " pmouseY: ", pmouseY);
 	myPiece.modifyPos(mouseX - px, mouseY - py);
-	px = mouseX;
-	py = mouseY;
+	savePrevMouse();
+	adh = calculateAdherence();
+	
 }
 
 function mouseReleased(){
 	myPiece = null;
 }
 
+function savePrevMouse(){
+	px = mouseX;
+	py = mouseY;
+}
+
+function calculateAdherence(){
+	for(let p of pieces)
+		if(myPiece.canAdh(p) )
+			return {piece: p, mode: ADHMODE.DOWN,};
+		
+		else if(p.canAdh(myPiece))
+			return {piece: p, mode: ADHMODE.UP,};
+		
+	
+	return {piece: null, mode: ADHMODE.ERRORADH,};
+}
+
+var ADHMODE = {
+	ERRORADH : -1,
+	UP		 : 0,
+	DOWN	 : 1,
+}
+ 
