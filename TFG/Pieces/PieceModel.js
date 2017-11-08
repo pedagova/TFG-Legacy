@@ -5,20 +5,48 @@ class PieceModel{
 		this.y = y;
 		this.name = name;
 		this.next = null;
+		this.prev = null;
 	}
 
 	//add the next piece to this one
 	//Param:
 		//nextPiece: the next one;
-	addNext(nextPiece){
-		this.next = nextPiece;
+	add(nextPiece){
+		let piece = nextPiece.model;
+		if(this.next == null){
+			this.next = nextPiece;
+			piece.prev = this;
+			return;
+		}
+
+			let next = this.next;
+
+			this.next = nextPiece;
+
+			piece.next = next;
+			piece.prev = this;
+
+			piece.prev = nextPiece;
 	}
 
 	//remove the nextPiece
 	//Param:
 		//nextPiece: the piece which gonna be the next one
-	remove(){
-		
+	rm(){
+		let prev = this.prev;
+		let next = this.next;
+
+		if(prev != null)
+			prev.next = next;
+		if(next != null)
+			next.prev = prev;
+	}
+
+	unlock(){
+		if(this.prev == null) return;
+			
+		this.prev.next = null;
+		this.prev = null;
 	}
 
 	isSelected(x, y, _width, _height){
@@ -51,8 +79,8 @@ class PieceModel{
 		let xDif = p1.x - p2.x;
 
 
-		return yDif > 0 && yDif < 30 &&
-				abs(xDif) < 10;
+		return yDif > 0 && yDif < VERTICALHEIGTH &&
+				abs(xDif) < VERTICALWIDTH;
 	}
 
 	exec(param){

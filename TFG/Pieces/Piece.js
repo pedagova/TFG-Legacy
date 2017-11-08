@@ -6,14 +6,18 @@ class Piece {
 		this.model = new PieceModel(x, y, name);
 	}
 
-	addNext(next){
+	add(next){
 		if(next == this) return;
 		
-		this.model.addNext(next);
+		this.model.add(next);
 	}
 
-	rmNext(next){
-		this.model.remove(next);
+	rm(){
+		this.model.rm();
+	}
+
+	unlock(){
+		this.model.unlock();
 	}
 
 	show(){
@@ -54,5 +58,22 @@ class Piece {
 
 	getHeight(){
 		return this.view.height;
+	}
+
+	gripWith(piece){
+		let xMod = this.model.x - piece.getX();
+		let yMod = this.model.y - piece.getY();
+
+		if(yMod > 0){
+			this.modifyPos(-xMod, -yMod + this.view.height);
+			piece.add(this);
+		}else{
+			this.modifyPos(-xMod, -yMod - this.view.height);
+			this.add(piece);
+		}
+	}
+
+	highlight(mode){
+		this.view.setHighlight(mode);
 	}
 }

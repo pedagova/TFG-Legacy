@@ -1,4 +1,4 @@
-let myPiece;
+
 let px, py;
 function findPiece(pieces){
 	for(let p of pieces)
@@ -9,21 +9,31 @@ function findPiece(pieces){
 
 function mousePressed(){
 	myPiece = findPiece(pieces);
+	if(myPiece != null){
+		myPiece.unlock();
+	}
 	px = mouseX;
 	py = mouseY;
 }
 
 function mouseDragged(){
-	let adh;
+
 	if(myPiece == null) return;
 	myPiece.modifyPos(mouseX - px, mouseY - py);
 	savePrevMouse();
-	adh = calculateAdherence();
-	
+	let adh = canAdherence();
+	gripedPiece = adh.piece;
+	if(adh != ADHMODE.ERRORADH){
+		//gripedPiece.highlight(adh.mode);
+	}
 }
 
 function mouseReleased(){
+	if(gripedPiece != null)
+		myPiece.gripWith(gripedPiece);
 	myPiece = null;
+	gripedPiece = null;
+
 }
 
 function savePrevMouse(){
@@ -31,21 +41,19 @@ function savePrevMouse(){
 	py = mouseY;
 }
 
-function calculateAdherence(){
+function canAdherence(){
 	for(let p of pieces)
-		if(myPiece.canAdh(p) )
-			return {piece: p, mode: ADHMODE.DOWN,};
+		if(myPiece.canAdh(p))
+			return {piece : p, mode : ADHMODE.TOP};
 		
 		else if(p.canAdh(myPiece))
-			return {piece: p, mode: ADHMODE.UP,};
+			return {piece : p, mode : ADHMODE.BOTTOM};
 		
-	
-	return {piece: null, mode: ADHMODE.ERRORADH,};
+	return {piece : null, mode : ADHMODE.ERRORADH};
 }
 
-var ADHMODE = {
-	ERRORADH : -1,
-	UP		 : 0,
-	DOWN	 : 1,
+function gripPieces(piece){
+	myPiece.gripWith(piece);
 }
+
  

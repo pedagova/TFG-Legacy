@@ -4,6 +4,7 @@ class PieceView{
 		this.width = width;
 		this.height = height;
 		this.color = color;
+		this.highLightMode = ADHMODE.NONE;
 	}
 
 	//Display the form of the piece
@@ -17,11 +18,8 @@ class PieceView{
 		point(x, y);
 		fill(0);
 	}
-}
 
-
-var COLOR = {
-	R : 0,
-	G : 1,
-	B : 2,
+	setHighlight(mode){
+		this.highLightMode = mode;
+	}
 }
