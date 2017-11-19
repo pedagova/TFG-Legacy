@@ -12,8 +12,8 @@ function temp(){
 	pieces.push(new Piece(100, 30, 0, 0, [0, 0, 255], "BLUE"));
 	pieces.push(new Piece(100, 30, 0, 30, [0, 255, 0], "GREEN"));
 	pieces.push(new ForPiece(100, 30, 0, 60, [255, 0, 0], "RED"));
-	pieces.push(new Piece(100, 30, 0, 90, [150, 0, 150], "PURPLE"));
-	
+	pieces.push(new Piece(100, 30, 0, 200, [150, 0, 150], "PURPLE"));
+	pieces[2].addOne(pieces[3]);
 	mainPiece = pieces[2];
 }
 
@@ -33,6 +33,7 @@ function draw(){
 }
 
 function launch(){
-
+	let p = mainPiece;
+	while((p = p.exec()) != null);
 }
 

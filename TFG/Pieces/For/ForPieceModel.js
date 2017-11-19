@@ -22,10 +22,11 @@ class ForPieceModel extends PieceModel{
 	}
 
 	exec(param){
+		if(this.first == null) return this.next;
 		let p = this.first;
 
 		console.log("ini for ---------------------");
-
+		
 		for(let i = 0; i < 5; i++){
 			console.log("iteration " + i);
 			while((p = p.exec(param)) != null){}
