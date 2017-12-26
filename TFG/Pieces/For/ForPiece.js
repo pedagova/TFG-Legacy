@@ -1,20 +1,27 @@
+
+//Observer que mira a las piezas
 class ForPiece extends Piece{
 
 	constructor(width, height, x, y, color, name){
 		super(width, height, x, y, color, name);
-		this.model = new ForPieceModel(x, y); 
-		this.view = new ForPieceView(width, height, color);
+		this.model = new ForPieceModel(x, y, width, height); 
+		this.view = new ForPieceView(color);			
 	}
 
 	addOne(piece){
 		this.model.addOne(piece);
+		this.grow(getBlockSize(piece));
+		piece.model.prev = this;
+		piece.model.ref = this;
 	}
 
-	show(){
-		this.view.show(this.model.x, this.model.y);
-		/*if(this.model.first != null)
-			this.model.first.show();
-		if(this.model.next != null)
-			this.model.next.show();*/
+	grow(n){
+		this.model.grow(n);
+
+		if(this.next != null)
+			this.next.modifyPos(0, n);
+		let last = this.model.getLast(this);
+		if(last.model.ref != null)
+			last.model.ref.grow(n);
 	}
 }

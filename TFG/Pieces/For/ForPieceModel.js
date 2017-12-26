@@ -1,16 +1,17 @@
 class ForPieceModel extends PieceModel{
 
-	constructor(x, y){
-		super(x, y);;
+	constructor(x, y, width, height){
+		super(x, y, width, height);;
 		this.first = null;
 		this.cont = 0;
 	}
 
 	addOne(piece){
-		if(this.first == null){
-			this.first = piece;	
-		}
+		
+		this.first = piece;	
+		this.grow(getBlockSize(piece));
 		this.cont++;
+		
 	}
 
 	modifyPos(x, y){
@@ -19,6 +20,11 @@ class ForPieceModel extends PieceModel{
 		if(this.first != null)
 			this.first.modifyPos(x, y);
 
+	}
+
+	grow(n){	
+		this.height += n;
+		console.log("I have grown: ", n)
 	}
 
 	exec(param){

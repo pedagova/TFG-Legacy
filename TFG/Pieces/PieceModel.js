@@ -1,17 +1,33 @@
 class PieceModel{
 
-	constructor(x, y, name){
+	constructor(x, y, width, height,name){
 		this.x = x;
 		this.y = y;
 		this.name = name;
 		this.next = null;
 		this.prev = null;
+		this.width = width;
+		this.height = height;
+		this.ref = null;
 	}
 
 	//add the next piece to this one
 	//Param:
 		//nextPiece: the next one;
 	add(nextPiece){
+		//update the next reference of this piece
+		this._add(nextPiece);
+
+		//update the ref value for the block
+		let last = this.getLast(nextPiece);
+		last.setRef(this.ref);
+		if(this.ref != null)
+			this.ref.grow(getBlockSize(nextPiece));
+		this.ref = null;
+		
+	}
+
+	_add(nextPiece){
 		let piece = nextPiece.model;
 		if(this.next == null){
 			this.next = nextPiece;
@@ -19,14 +35,27 @@ class PieceModel{
 			return;
 		}
 
-			let next = this.next;
+		let next = this.next;
 
-			this.next = nextPiece;
+		this.next = nextPiece;
 
-			piece.next = next;
-			piece.prev = this;
+		piece.next = next;
+		piece.prev = this;
 
-			piece.prev = nextPiece;
+		piece.prev = nextPiece;
+	}
+
+	getLast(pieces){
+		let last = null;
+		if(pieces == null)
+			return;
+		let p = pieces;
+		while(true){
+			if(p.model.next == null)
+				return p;
+			p = p.model.next;
+		}
+		
 	}
 
 	//remove the nextPiece
@@ -49,9 +78,9 @@ class PieceModel{
 		this.prev = null;
 	}
 
-	isSelected(x, y, _width, _height){
-		return this.x - _width/2 < x && this.x + _width/2 > x &&
-			   this.y - _height/2 < y && this.y + _height/2 > y;
+	isSelected(x, y){
+		return this.x < x && this.x + this.width > x &&
+			   this.y < y && this.y + this.height > y;
 	}
 
 	modifyPos(x, y){
@@ -62,12 +91,12 @@ class PieceModel{
 		this.next.modifyPos(x, y);
 	}
 
-	canAdh(piece, _width, _height){
+	canAdh(piece){
 
 	
 		let p1 = {
 			x : this.x,
-			y : this.y - _height / 2,
+			y : this.y - this.height / 2,
 		}
 
 		let p2 = {

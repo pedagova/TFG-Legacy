@@ -1,8 +1,7 @@
 class PieceView{
 
-	constructor(width, height, color){
-		this.width = width;
-		this.height = height;
+	constructor(color){
+		
 		this.color = color;
 		this.highLightMode = ADHMODE.NONE;
 	}
@@ -11,10 +10,10 @@ class PieceView{
 	//	Param: 
 		//	-x, y are the center of the piece
 
-	show(x, y){
+	show(x, y, width, height){
 		fill(this.color[COLOR.R], this.color[COLOR.G], this.color[COLOR.B]);
-		rectMode(CENTER);
-		rect(x, y, this.width, this.height);
+		//rectMode(CENTER);
+		rect(x, y, width, height);
 		point(x, y);
 		fill(0);
 	}

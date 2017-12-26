@@ -1,15 +1,17 @@
-class Piece {
+class Piece{
 
 	constructor(width, height, x, y, color, name){
+		
 		this.name = name;
-		this.view = new PieceView(width, height, color);
-		this.model = new PieceModel(x, y, name);
+		this.view = new PieceView(color);
+		this.model = new PieceModel(x, y, width, height, name);
 	}
 
 	add(next){
 		if(next == this) return;
 		
 		this.model.add(next);
+		//this.grow(getBlockSize(next));
 	}
 
 	rm(){
@@ -21,10 +23,18 @@ class Piece {
 	}
 
 	show(){
-		this.view.show(this.model.x, this.model.y);
+		this.view.show(this.model.x, this.model.y, this.model.width, this.model.height);
 		/*if(this.model.next != null)
 			this.model.next.show();*/
 
+	}
+
+	getRef(){
+		return this.model.ref;
+	}
+
+	setRef(ref){
+		this.model.ref = ref;
 	}
 
 	isSelected(x, y){
@@ -37,7 +47,7 @@ class Piece {
 
 	canAdh(piece){
 		if(piece == this) return;
-		return this.model.canAdh(piece, this.view.width, this.view.height);
+		return this.model.canAdh(piece);
 	}
 
 	exec(param){
@@ -53,11 +63,11 @@ class Piece {
 	}
 
 	getWidth(){
-		return this.view.width;
+		return this.model.width;
 	}
 
 	getHeight(){
-		return this.view.height;
+		return this.model.height;
 	}
 
 	gripWith(piece){
@@ -65,10 +75,10 @@ class Piece {
 		let yMod = this.model.y - piece.getY();
 
 		if(yMod > 0){
-			this.modifyPos(-xMod, -yMod + this.view.height);
+			this.modifyPos(-xMod, -yMod + this.model.height);
 			piece.add(this);
 		}else{
-			this.modifyPos(-xMod, -yMod - this.view.height);
+			this.modifyPos(-xMod, -yMod - this.model.height);
 			this.add(piece);
 		}
 	}
