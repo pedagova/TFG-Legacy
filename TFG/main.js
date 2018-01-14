@@ -28,6 +28,7 @@ function draw(){
 	background(255, 255, 190);
 	for(let p of pieces){
 		p.show();
+		p.isSelected(0,0);
 	}
 	if(gripedPiece != null){
 		//gripedPiece.highLight(myPiece);

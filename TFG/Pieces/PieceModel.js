@@ -11,6 +11,7 @@ class PieceModel{
 		this.ref = null;
 	}
 
+	****
 	//add the next piece to this one
 	//Param:
 		//nextPiece: the next one;
@@ -24,7 +25,6 @@ class PieceModel{
 		if(this.ref != null)
 			this.ref.grow(getBlockSize(nextPiece));
 		this.ref = null;
-		
 	}
 
 	_add(nextPiece){

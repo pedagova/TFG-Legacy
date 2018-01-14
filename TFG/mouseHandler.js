@@ -1,9 +1,11 @@
 
 let px, py;
 function findPiece(pieces){
+	let values = [];
 	for(let p of pieces)
-		if(p.isSelected(mouseX - width / 2, mouseY - height / 2))
+		if(p.isSelected(mouseX - width / 2, mouseY - height / 2)){
 			return p;
+		}
 	return null;
 }
 

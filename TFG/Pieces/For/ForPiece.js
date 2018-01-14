@@ -16,12 +16,15 @@ class ForPiece extends Piece{
 	}
 
 	grow(n){
-		this.model.grow(n);
+		
 
-		if(this.next != null)
+		/*if(this.next != null)
 			this.next.modifyPos(0, n);
 		let last = this.model.getLast(this);
-		if(last.model.ref != null)
+		if(last.model.ref != null)*/
 			last.model.ref.grow(n);
+	}
+	check(x, y){
+		return this.model.check(x, y);
 	}
 }

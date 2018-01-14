@@ -38,7 +38,7 @@ class Piece{
 	}
 
 	isSelected(x, y){
-		return this.model.isSelected(x, y, this.view.width, this.view.height);
+		return this.model.isSelected(x, y);
 	}
 
 	modifyPos(x, y){
