@@ -11,7 +11,6 @@ class PieceModel{
 		this.ref = null;
 	}
 
-	****
 	//add the next piece to this one
 	//Param:
 		//nextPiece: the next one;

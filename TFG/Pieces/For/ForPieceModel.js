@@ -8,7 +8,7 @@ class ForPieceModel extends PieceModel{
 
 	addOne(piece){
 		
-		this.grow(getBlockSize(piece));
+		//this.grow(getBlockSize(piece));
 		this.first = piece;	
 		this.first.model.x = this.x + FORMIDPIECE_WIDTH;
 		this.first.model.y = this.y + FORTOPPIECE_HEIGHT;
@@ -26,7 +26,7 @@ class ForPieceModel extends PieceModel{
 
 	grow(n){	
 		if(this.first == null)
-			this.height += n - FORMIDPIECE_HEIGHT + FORBOTTOMPIECE_HEIGHT;
+			this.height = n + FORTOPPIECE_HEIGHT + FORBOTTOMPIECE_HEIGHT;
 		else
 			this.height += n;
 		console.log("I have grown: ", n)

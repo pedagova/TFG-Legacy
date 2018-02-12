@@ -9,20 +9,14 @@ class ForPiece extends Piece{
 	}
 
 	addOne(piece){
-		this.model.addOne(piece);
 		this.grow(getBlockSize(piece));
+		this.model.addOne(piece);
 		piece.model.prev = this;
 		piece.model.ref = this;
 	}
 
 	grow(n){
-		
-
-		/*if(this.next != null)
-			this.next.modifyPos(0, n);
-		let last = this.model.getLast(this);
-		if(last.model.ref != null)*/
-			last.model.ref.grow(n);
+		this.model.grow(n);
 	}
 	check(x, y){
 		return this.model.check(x, y);
