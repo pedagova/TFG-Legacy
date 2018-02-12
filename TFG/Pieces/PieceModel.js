@@ -11,6 +11,13 @@ class PieceModel{
 		this.ref = null;
 	}
 
+	updateRef(newRef){
+		this.ref = newRef;
+		if(this.next != null)
+			next.updateRef(newRef);
+		return;
+	}
+
 	//add the next piece to this one
 	//Param:
 		//nextPiece: the next one;
@@ -71,6 +78,9 @@ class PieceModel{
 	}
 
 	unlock(){
+
+		
+
 		if(this.prev == null) return;
 			
 		this.prev.next = null;

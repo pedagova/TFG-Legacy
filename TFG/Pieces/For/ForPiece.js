@@ -11,6 +11,7 @@ class ForPiece extends Piece{
 	addOne(piece){
 		this.grow(getBlockSize(piece));
 		this.model.addOne(piece);
+		
 		piece.model.prev = this;
 		piece.model.ref = this;
 	}
@@ -18,7 +19,14 @@ class ForPiece extends Piece{
 	grow(n){
 		this.model.grow(n);
 	}
-	check(x, y){
-		return this.model.check(x, y);
+
+	shrink(n){
+		this.model.shrink(n);
+	}
+
+	goodBye(size){
+		this.model.shrink(size);
+		if(this.model.ref != null)
+			this.model.ref.goodBye(size);
 	}
 }

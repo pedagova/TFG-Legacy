@@ -7,13 +7,11 @@ class ForPieceModel extends PieceModel{
 	}
 
 	addOne(piece){
-		
-		//this.grow(getBlockSize(piece));
-		this.first = piece;	
-		this.first.model.x = this.x + FORMIDPIECE_WIDTH;
-		this.first.model.y = this.y + FORTOPPIECE_HEIGHT;
-		this.cont++;
-		
+		if(this.first != null)
+			return;
+
+		this.first = piece;
+		piece.updateRef(this);
 	}
 
 	modifyPos(x, y){
@@ -24,12 +22,21 @@ class ForPieceModel extends PieceModel{
 
 	}
 
-	grow(n){	
-		if(this.first == null)
-			this.height = n + FORTOPPIECE_HEIGHT + FORBOTTOMPIECE_HEIGHT;
+	grow(n){
+		if(this.first == null) 
+	     	this.height += n - FORMIDPIECE_HEIGHT + FORBOTTOMPIECE_HEIGHT;
+	    else 
+	      	this.height += n; 
+	}
+
+	shrink(n){
+		let newHeight = this.height - n;
+		let constHeight = FORBOTTOMPIECE_HEIGHT + FORTOPPIECE_HEIGHT;
+		if(newHeight == constHeight)
+			this.height = constHeight + FORMIDPIECE_HEIGHT
 		else
-			this.height += n;
-		console.log("I have grown: ", n)
+			this.height -= n;
+
 	}
 
 	exec(param){
@@ -49,20 +56,6 @@ class ForPieceModel extends PieceModel{
 		return this.next;
 	}
 
-	check(x, y){
-
-		let p = this.first;
-		while(p != null){
-			if(p.isSelected(x, y)){
-				if(p instanceof ForPiece){
-					return p.check();			
-				}
-				return p;
-			}
-		}
-		return null;
-
-	}
 
 	isSelected(x, y){
 		let auxX = this.x;

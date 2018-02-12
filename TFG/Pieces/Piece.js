@@ -7,6 +7,11 @@ class Piece{
 		this.model = new PieceModel(x, y, width, height, name);
 	}
 
+
+	updateRef(newRef){
+		this.model.updateRef(newRef);
+	}
+
 	add(next){
 		if(next == this) return;
 		
@@ -19,6 +24,9 @@ class Piece{
 	}
 
 	unlock(){
+		let ref = this.model.ref;
+		if(ref != null)
+			ref.goodBye(getBlockSize(this));
 		this.model.unlock();
 	}
 
