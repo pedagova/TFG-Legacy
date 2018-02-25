@@ -27,6 +27,7 @@ class Piece{
 		let ref = this.model.ref;
 		if(ref != null)
 			ref.goodBye(getBlockSize(this));
+		this.updateRef(null);
 		this.model.unlock();
 	}
 
